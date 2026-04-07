@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d82b06bbfc013a44ab12cd970cde8c9, type: 3}
+  m_Name: Potion_Rare
+  m_EditorClassIdentifier: Assembly-CSharp::PotionItemData
+  itemName: 
+  itemIcon: {fileID: 21300000, guid: d9c5e2d4124e6254d9a138ffd9d53bcb, type: 3}
+  itemType: 1
+  buyPrice: 100
+  itemRarity: 1
+  healAmount: 60
+  maxStack: 3
