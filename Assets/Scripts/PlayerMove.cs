@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMove : MonoBehaviour
 {
+    //Sounds
+    [SerializeField] private AudioSource walkSound;
+
+
     [Header("Movement")]
     public float walkSpeed = 4f;
     public float sprintSpeed = 6.5f;
@@ -30,6 +34,9 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+
+
+
         // 1. Ground Check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded && velocity.y < 0f) velocity.y = -2f;
@@ -47,6 +54,18 @@ public class PlayerMove : MonoBehaviour
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
         float speed = sprintHeld ? sprintSpeed : walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
+
+        //Sounds
+        if (move.magnitude > 0.1f && isGrounded)
+        {
+            if (!walkSound.isPlaying)
+                walkSound.Play();
+        }
+        else
+        {
+            if (walkSound.isPlaying)
+                walkSound.Stop();
+        }
 
         // 4. Jump & Gravity
         if (jumpQueued && isGrounded)

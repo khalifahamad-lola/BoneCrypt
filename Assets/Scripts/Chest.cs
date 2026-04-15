@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
+
+    //Sounds
+    [SerializeField] private AudioSource chestSound;
+
+
     [Header("References")]
     [SerializeField] private Transform chestTop;
 
@@ -19,6 +24,7 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private Vector3 openRotation = new Vector3(-110f, 0f, 0f);
     [SerializeField] private float openSpeed = 5f;
     [SerializeField] private bool openOnceOnly = true;
+
 
     private bool isOpen = false;
     private bool rewardGiven = false;
@@ -50,6 +56,12 @@ public class Chest : MonoBehaviour, IInteractable
 
         isOpen = true;
         targetRot = closedRot * Quaternion.Euler(openRotation);
+
+        //Sounds
+        if (chestSound != null)
+        {
+            chestSound.Play();
+        }
 
         if (!rewardGiven)
         {

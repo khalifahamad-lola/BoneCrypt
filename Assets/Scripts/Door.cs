@@ -10,6 +10,14 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private bool isLocked = false;
     [SerializeField] private string requiredKeyId;
 
+
+    //Sounds
+    [SerializeField] private AudioSource winSound;
+    private bool hasPlayedWin = false;
+
+    [SerializeField] private AudioSource doorSound;
+
+
     private bool isOpen = false;
     private Vector3 closedPosition;
     private Vector3 openPosition;
@@ -44,7 +52,22 @@ public class Door : MonoBehaviour, IInteractable
             Debug.Log("Door unlocked with key: " + requiredKeyId);
         }
 
+
+        //Sounds
+        if (!hasPlayedWin && winSound != null)
+        {
+            winSound.Play();
+            hasPlayedWin = true;
+        }
+
+
         isOpen = !isOpen;
+
+        //Sounds
+        if (doorSound != null)
+        {
+            doorSound.Play();
+        }
     }
 
     private void Update()

@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour, IDamagable
 {
+
+
     [SerializeField] private float maxHealth = 50;
     [SerializeField] private float hitStunTime = 0.15f;
     [SerializeField] private int soulsAmount = 100;
@@ -10,6 +12,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     [Header("Health Bar")]
     [SerializeField] private EnemyHealthBarUI healthBarPrefab;
     [SerializeField] private Transform headBarPoint;
+
+
+    //Sounds
+    [SerializeField] private AudioSource deathSound;
+
 
     private float currentHealth;
     private Animator animator;
@@ -32,6 +39,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable
 
     private void Start()
     {
+
+
         wallet = FindFirstObjectByType<SoulsWallet>();
         if (wallet == null)
         {
@@ -104,6 +113,12 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         if (isDead) return;
         isDead = true;
 
+        //Sounds
+        if (deathSound != null)
+        {
+            deathSound.Play();
+        }
+
         if (wallet != null)
         {
             wallet.AddSouls(soulsAmount);
@@ -114,6 +129,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable
             Destroy(spawnedHealthBar.gameObject);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.5f);
     }
 }

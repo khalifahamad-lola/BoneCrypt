@@ -24,6 +24,11 @@ public class Sekelto : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 2f;
 
+    //Sounds
+    [SerializeField] private AudioSource enemySound;
+    private bool hasPlayedAlertSound = false;
+
+
     private NavMeshAgent agent;
     private Transform player;
     private SkeletonAttack attack;
@@ -52,6 +57,9 @@ public class Sekelto : MonoBehaviour
 
     private void Start()
     {
+
+
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -118,6 +126,14 @@ public class Sekelto : MonoBehaviour
             currentState = State.Chase;
             loseTimer = 0f;
             patrolWaitTimer = 0f;
+
+            if (!hasPlayedAlertSound && enemySound != null)
+            {
+                enemySound.PlayOneShot(enemySound.clip, 1.5f); //Sounds
+
+                hasPlayedAlertSound = true;
+            }
+
             return;
         }
 
@@ -179,6 +195,9 @@ public class Sekelto : MonoBehaviour
                 loseTimer = 0f;
                 patrolWaitTimer = 0f;
                 agent.speed = patrolSpeed;
+
+                hasPlayedAlertSound = false; //Sounds
+
                 GoToNextPatrolPoint();
                 return;
             }

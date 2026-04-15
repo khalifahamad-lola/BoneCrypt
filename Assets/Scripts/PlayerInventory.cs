@@ -10,6 +10,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int maxSlots = 20;
     [SerializeField] private QuickSlotsUIController quickSlotsUI;
 
+
+    //Sounds
+    [SerializeField] private AudioSource keySound;
+
+
     private PlayerStats player;
 
     void Start()
@@ -77,6 +82,16 @@ public class PlayerInventory : MonoBehaviour
 
         slots.Add(new InventorySlot(item, 1));
         Debug.Log($"Inventory: Added {item.itemName}");
+
+        //Sounds
+        if (item is KeyItemData)
+        {
+            if (keySound != null)
+            {
+                keySound.PlayOneShot(keySound.clip);
+            }
+        }
+
         RefreshQuickSlotsUI();
     }
 

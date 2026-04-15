@@ -10,6 +10,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private PlayerEquipment equipment;
     [SerializeField] private GameObject bloodBurstPrefab;
 
+    //Sounds
+    [SerializeField] private AudioSource hitSound;
+
+
     private PlayerStats playerStats;
 
     private bool canAttack = true;
@@ -49,7 +53,9 @@ public class PlayerAttack : MonoBehaviour
 
         if (canAttack)
         {
-            canAttack = false;
+            canAttack = false;  
+
+
             comboStep = 1;
             queuedNextAttack = false;
             canQueueNextAttack = false;
@@ -78,6 +84,11 @@ public class PlayerAttack : MonoBehaviour
             {
                 Vector3 hitDir = -playerCamera.transform.forward;
                 target.TakeDamage(damage, hitDir);
+
+                if (hitSound != null)//Sounds
+                {
+                    hitSound.PlayOneShot(hitSound.clip);
+                }
 
                 hitTargetsThisSwing.Add(target);
                 SpawnBloodEffect(hit);

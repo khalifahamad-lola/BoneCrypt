@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    //Sounds
+    [SerializeField] private AudioSource deathSound;
+
+
     [Header("Health")]
     [SerializeField] public float maxHealth = 100f;
     [SerializeField] public float currentHealth = 100f;
@@ -60,8 +64,15 @@ public class PlayerStats : MonoBehaviour
 
     void Die()
     {
+
+        //Sounds
+        if (deathSound != null)
+        {
+            deathSound.Play();
+        }
+
         Debug.Log("Player Died");
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
 
     public void Heal(float amount)
