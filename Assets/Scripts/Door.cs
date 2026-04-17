@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    [Header("Door Movement")]
-    [SerializeField] private float openHeight = 3f;
+    public enum RotationAxis
+    {
+        X,
+        Y,
+        Z
+    }
+
+    [Header("Door Rotation")]
+    [SerializeField] private RotationAxis rotationAxis = RotationAxis.Y;
+    [SerializeField] private float openAngle = 90f;
     [SerializeField] private float speed = 3f;
 
     [Header("Lock Settings")]
@@ -11,13 +19,13 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private string requiredKeyId;
 
     private bool isOpen = false;
-    private Vector3 closedPosition;
-    private Vector3 openPosition;
+    private Quaternion closedRotation;
+    private Quaternion openRotation;
 
     private void Start()
     {
-        closedPosition = transform.position;
-        openPosition = closedPosition + new Vector3(0, openHeight, 0);
+        closedRotation = transform.rotation;
+        openRotation = closedRotation * Quaternion.Euler(GetOpenEuler());
     }
 
     public void Interact(GameObject player)
@@ -49,13 +57,30 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (isOpen)
+        Quaternion targetRotation = isOpen ? openRotation : closedRotation;
+
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * speed
+        );
+    }
+
+    private Vector3 GetOpenEuler()
+    {
+        switch (rotationAxis)
         {
-            transform.position = Vector3.Lerp(transform.position, openPosition, Time.deltaTime * speed);
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, closedPosition, Time.deltaTime * speed);
+            case RotationAxis.X:
+                return new Vector3(openAngle, 0f, 0f);
+
+            case RotationAxis.Y:
+                return new Vector3(0f, openAngle, 0f);
+
+            case RotationAxis.Z:
+                return new Vector3(0f, 0f, openAngle);
+
+            default:
+                return Vector3.zero;
         }
     }
 }
