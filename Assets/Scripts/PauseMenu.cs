@@ -6,8 +6,9 @@ public class PauseMenu : MonoBehaviour
     [Header("Main References")]
     [SerializeField] private CanvasGroup pauseMenu;
     [SerializeField] private RectTransform panel;
+    [SerializeField] private GameObject quickSlotsPanel;
 
-    [Header("Optional Settings Panel")]
+    [Header("Settings Panel")]
     [SerializeField] private CanvasGroup settingsPanel;
 
     [Header("Animation")]
@@ -35,9 +36,7 @@ public class PauseMenu : MonoBehaviour
         }
 
         if (panel != null)
-        {
             panel.localScale = hiddenScale;
-        }
 
         if (settingsPanel != null)
         {
@@ -45,6 +44,9 @@ public class PauseMenu : MonoBehaviour
             settingsPanel.interactable = false;
             settingsPanel.blocksRaycasts = false;
         }
+
+        if (quickSlotsPanel != null)
+            quickSlotsPanel.SetActive(true);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -54,7 +56,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isAnimating)
         {
-            // if settings is open, close only settings first
             if (showingSettings)
             {
                 CloseSettings();
@@ -86,13 +87,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (!isPaused) return;
 
-        if (showingSettings)
-        {
-            CloseSettings();
-        }
+        CloseSettings();
 
         isPaused = false;
         Time.timeScale = 1f;
+
+        if (quickSlotsPanel != null)
+            quickSlotsPanel.SetActive(true);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,17 +119,24 @@ public class PauseMenu : MonoBehaviour
         settingsPanel.alpha = 1f;
         settingsPanel.interactable = true;
         settingsPanel.blocksRaycasts = true;
+
+        if (quickSlotsPanel != null)
+            quickSlotsPanel.SetActive(false);
     }
 
     public void CloseSettings()
     {
-        if (settingsPanel == null) return;
-
         showingSettings = false;
 
-        settingsPanel.alpha = 0f;
-        settingsPanel.interactable = false;
-        settingsPanel.blocksRaycasts = false;
+        if (settingsPanel != null)
+        {
+            settingsPanel.alpha = 0f;
+            settingsPanel.interactable = false;
+            settingsPanel.blocksRaycasts = false;
+        }
+
+        if (quickSlotsPanel != null)
+            quickSlotsPanel.SetActive(true);
     }
 
     public void GoToMainMenu()
@@ -141,8 +149,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         Application.Quit();
-
-        // helpful in editor
         Debug.Log("Quit Game pressed");
     }
 
@@ -162,8 +168,17 @@ public class PauseMenu : MonoBehaviour
         while (!Mathf.Approximately(pauseMenu.alpha, targetAlpha) ||
                Vector3.Distance(panel.localScale, targetScale) > 0.001f)
         {
-            pauseMenu.alpha = Mathf.Lerp(pauseMenu.alpha, targetAlpha, Time.unscaledDeltaTime * fadeSpeed);
-            panel.localScale = Vector3.Lerp(panel.localScale, targetScale, Time.unscaledDeltaTime * scaleSpeed);
+            pauseMenu.alpha = Mathf.Lerp(
+                pauseMenu.alpha,
+                targetAlpha,
+                Time.unscaledDeltaTime * fadeSpeed
+            );
+
+            panel.localScale = Vector3.Lerp(
+                panel.localScale,
+                targetScale,
+                Time.unscaledDeltaTime * scaleSpeed
+            );
 
             if (Mathf.Abs(pauseMenu.alpha - targetAlpha) < 0.01f)
                 pauseMenu.alpha = targetAlpha;
