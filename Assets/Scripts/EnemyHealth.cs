@@ -21,6 +21,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     private bool isDead;
 
     private EnemyHealthBarUI spawnedHealthBar;
+    private EnemySpawnPoint spawnPoint;
 
     private void Awake()
     {
@@ -55,6 +56,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         if (agent == null) return;
 
         agent.isStopped = Time.time < stunUntil;
+    }
+
+    public void SetSpawnPoint(EnemySpawnPoint newSpawnPoint)
+    {
+        spawnPoint = newSpawnPoint;
     }
 
     public void TakeDamage(float dmg, Vector3 hitDir)
@@ -114,6 +120,18 @@ public class EnemyHealth : MonoBehaviour, IDamagable
             Destroy(spawnedHealthBar.gameObject);
         }
 
+        if (spawnPoint != null)
+        {
+            spawnPoint.ClearCurrentEnemy();
+        }
+
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        if (spawnedHealthBar != null)
+        {
+            Destroy(spawnedHealthBar.gameObject);
+        }
     }
 }

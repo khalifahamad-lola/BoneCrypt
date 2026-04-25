@@ -20,16 +20,23 @@ public class PlayerStats : MonoBehaviour
     public float staminaRegenRate = 20f;
 
     private PlayerBlock playerBlock;
+    private PlayerRespawn playerRespawn;
+    private bool isDead = false;
 
     void Awake()
     {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
+
         playerBlock = GetComponent<PlayerBlock>();
+        playerRespawn = GetComponent<PlayerRespawn>();
     }
 
     void Update()
     {
+        if (isDead)
+            return;
+
         if (playerBlock == null || !playerBlock.IsBlocking)
         {
             RegenerateStamina();
@@ -38,6 +45,9 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float incomingDamage)
     {
+        if (isDead)
+            return;
+
         float finalDamage = incomingDamage;
 
         if (playerBlock != null && playerBlock.IsBlocking)
@@ -52,26 +62,44 @@ public class PlayerStats : MonoBehaviour
 
         Debug.Log("Player Health: " + currentHealth);
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0f)
         {
             Die();
         }
     }
 
-    void Die()
+    private void Die()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
         Debug.Log("Player Died");
-        Destroy(gameObject);
+
+        if (playerRespawn != null)
+        {
+            playerRespawn.HandleDeath();
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStats: No PlayerRespawn found.");
+        }
     }
 
     public void Heal(float amount)
     {
+        if (isDead)
+            return;
+
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
 
     public bool UseStamina(float amount)
     {
+        if (isDead)
+            return false;
+
         if (currentStamina <= 0f)
             return false;
 
@@ -85,6 +113,13 @@ public class PlayerStats : MonoBehaviour
     {
         currentStamina += staminaRegenRate * Time.deltaTime;
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+    }
+
+    public void RestoreFullState()
+    {
+        currentHealth = maxHealth;
+        currentStamina = maxStamina;
+        isDead = false;
     }
 
     public void GainXp(float amount)

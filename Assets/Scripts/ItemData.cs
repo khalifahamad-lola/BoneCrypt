@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ItemType { Key, Potion, Weapon, Shield }
+public enum ItemType { Key, Potion, Weapon, Shield, QuestItem }
 public enum ItemRarity { Common, Rare, Legendary }
 
 public abstract class ItemData : ScriptableObject

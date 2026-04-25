@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class VendorUI : MonoBehaviour
 {
@@ -17,6 +18,12 @@ public class VendorUI : MonoBehaviour
     [SerializeField] private PlayerAttack playerAttack;
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private PlayerBlock playerBlock;
+    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private GameObject gameplayCinemachine;
+    [SerializeField] private GameObject playerCamera;
+
+    [Header("Look Restore")]
+    [SerializeField] private float lookSuppressDuration = 0.2f;
 
     public bool IsOpen => vendorPanel != null && vendorPanel.activeSelf;
 
@@ -24,6 +31,9 @@ public class VendorUI : MonoBehaviour
     {
         if (vendorPanel != null)
             vendorPanel.SetActive(false);
+
+        if (playerInput == null)
+            playerInput = FindFirstObjectByType<PlayerInput>();
     }
 
     public void OpenVendor(Vendor vendor)
@@ -39,13 +49,32 @@ public class VendorUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if (playerLook != null) playerLook.enabled = false;
-        if (playerMove != null) playerMove.enabled = false;
+        if (playerLook != null)
+        {
+            playerLook.ResetLookInput();
+            playerLook.enabled = false;
+        }
 
-        if (playerAttack != null) playerAttack.enabled = false;
-        if (playerInteract != null) playerInteract.enabled = false;
+        if (playerMove != null)
+            playerMove.canMove = false;
 
-        if (playerBlock != null) playerBlock.enabled = false;
+        if (playerAttack != null)
+            playerAttack.enabled = false;
+
+        if (playerInteract != null)
+            playerInteract.enabled = false;
+
+        if (playerBlock != null)
+            playerBlock.enabled = false;
+
+        if (playerInput != null)
+            playerInput.enabled = false;
+
+        if (gameplayCinemachine != null)
+            gameplayCinemachine.SetActive(false);
+
+        if (playerCamera != null)
+            playerCamera.SetActive(true);
     }
 
     public void CloseVendor()
@@ -57,13 +86,30 @@ public class VendorUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (playerLook != null) playerLook.enabled = true;
-        if (playerMove != null) playerMove.enabled = true;
+        if (gameplayCinemachine != null)
+            gameplayCinemachine.SetActive(true);
 
-        if (playerAttack != null) playerAttack.enabled = true;
-        if (playerInteract != null) playerInteract.enabled = true;
+        if (playerInput != null)
+            playerInput.enabled = true;
 
-        if (playerBlock != null) playerBlock.enabled = true;
+        if (playerMove != null)
+            playerMove.canMove = true;
+
+        if (playerAttack != null)
+            playerAttack.enabled = true;
+
+        if (playerInteract != null)
+            playerInteract.enabled = true;
+
+        if (playerBlock != null)
+            playerBlock.enabled = true;
+
+        if (playerLook != null)
+        {
+            playerLook.enabled = true;
+            playerLook.ResetLookInput();
+            playerLook.SuppressLookInputTemporarily(lookSuppressDuration);
+        }
     }
 
     public void TryBuy(int index)

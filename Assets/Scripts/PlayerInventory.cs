@@ -7,8 +7,9 @@ public class PlayerInventory : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public ItemData[] quickSlots = new ItemData[4];
 
-    [SerializeField] private int maxSlots = 20;
+    [SerializeField] private int maxSlots = 50;
     [SerializeField] private QuickSlotsUIController quickSlotsUI;
+    [SerializeField] private QuestManager questManager;
 
     private PlayerStats player;
 
@@ -19,6 +20,29 @@ public class PlayerInventory : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("PlayerInventory: No PlayerStats found on player.");
+        }
+
+        if (questManager == null)
+        {
+            questManager = FindFirstObjectByType<QuestManager>();
+        }
+    }
+
+    private void DebugInventoryContents()
+    {
+        Debug.Log("---- Inventory Slots ----");
+        Debug.Log("Slot Count: " + slots.Count + " / " + maxSlots);
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i] == null || slots[i].item == null)
+            {
+                Debug.Log("Slot " + i + ": NULL");
+            }
+            else
+            {
+                Debug.Log("Slot " + i + ": " + slots[i].item.name + " | itemName: " + slots[i].item.itemName + " | qty: " + slots[i].quantity);
+            }
         }
     }
 
@@ -40,6 +64,7 @@ public class PlayerInventory : MonoBehaviour
                     s.quantity++;
                     Debug.Log($"Stacked {item.itemName}. Quantity: {s.quantity}");
                     RefreshQuickSlotsUI();
+                    CheckQuestProgress();
                     return;
                 }
             }
@@ -47,6 +72,7 @@ public class PlayerInventory : MonoBehaviour
             // No non-full stack found, create a new stack
             if (slots.Count >= maxSlots)
             {
+                DebugInventoryContents();
                 Debug.Log("Inventory Full!");
                 return;
             }
@@ -54,6 +80,7 @@ public class PlayerInventory : MonoBehaviour
             slots.Add(new InventorySlot(item, 1));
             Debug.Log($"Inventory: Added new potion stack for {item.itemName}");
             RefreshQuickSlotsUI();
+            CheckQuestProgress();
             return;
         }
 
@@ -65,6 +92,7 @@ public class PlayerInventory : MonoBehaviour
                 s.quantity++;
                 Debug.Log($"Stacked {item.itemName}. Quantity: {s.quantity}");
                 RefreshQuickSlotsUI();
+                CheckQuestProgress();
                 return;
             }
         }
@@ -77,7 +105,9 @@ public class PlayerInventory : MonoBehaviour
 
         slots.Add(new InventorySlot(item, 1));
         Debug.Log($"Inventory: Added {item.itemName}");
+        Debug.Log("Adding item asset: " + item.name + " | itemName: " + item.itemName);
         RefreshQuickSlotsUI();
+        CheckQuestProgress();
     }
 
     public bool TryUseKey(string keyId)
@@ -98,6 +128,7 @@ public class PlayerInventory : MonoBehaviour
                 }
 
                 RefreshQuickSlotsUI();
+                CheckQuestProgress();
                 return true;
             }
         }
@@ -131,6 +162,7 @@ public class PlayerInventory : MonoBehaviour
                 }
 
                 RefreshQuickSlotsUI();
+                CheckQuestProgress();
                 return;
             }
         }
@@ -168,6 +200,7 @@ public class PlayerInventory : MonoBehaviour
                 }
 
                 RefreshQuickSlotsUI();
+                CheckQuestProgress();
                 return;
             }
         }
@@ -266,6 +299,14 @@ public class PlayerInventory : MonoBehaviour
     {
         if (quickSlotsUI != null)
             quickSlotsUI.RefreshUI();
+    }
+
+    private void CheckQuestProgress()
+    {
+        if (questManager != null)
+        {
+            questManager.CheckQuestProgress();
+        }
     }
 
     void Update()

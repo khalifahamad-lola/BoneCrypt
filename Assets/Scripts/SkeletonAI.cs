@@ -262,6 +262,23 @@ public class Sekelto : MonoBehaviour
         animator.SetBool("isRunning", running);
     }
 
+    public void SetPatrolPoints(Transform[] newPatrolPoints)
+    {
+        patrolPoints = newPatrolPoints;
+
+        currentPatrolIndex = 0;
+        patrolWaitTimer = 0f;
+
+        if (agent != null)
+        {
+            agent.speed = patrolSpeed;
+            agent.stoppingDistance = 0f;
+            agent.autoBraking = true;
+        }
+
+        GoToNextPatrolPoint();
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

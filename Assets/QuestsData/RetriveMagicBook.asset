@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f5153c4aeed594eb84740474a83e08, type: 3}
+  m_Name: RetriveMagicBook
+  m_EditorClassIdentifier: Assembly-CSharp::QuestData
+  questId: BookQuest_01
+  questName: Old Book Retrieval
+  questDescription: Find the old book in the dungeon and bring it back.
+  requirements: []
+  rewardItem: {fileID: 11400000, guid: 49b7ea5c489cd5b409a2414409055d53, type: 2}
+  rewardItemAmount: 1
+  rewardXP: 50
+  rewardSouls: 100

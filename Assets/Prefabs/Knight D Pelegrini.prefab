@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8092184626595214039
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 15.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_Name
+      value: Knight D Pelegrini
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1f91ad9a6a5f9494f9d5215a22146a80, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1935850485124974046}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7152877485150309943}
+  m_SourcePrefab: {fileID: 100100000, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+--- !u!1 &8974652451212267398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb13b2283f6596c4dbcfcf3d698d3317, type: 3}
+  m_PrefabInstance: {fileID: 8092184626595214039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1935850485124974046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974652451212267398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd3ad36a524e1346b4a312a275456a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Brother Cael
+  dialogueRole: 1
+  defaultLines: []
+  questData: {fileID: 11400000, guid: f31a9492d18fe004092df2e89dae430d, type: 2}
+  beforeQuestLines:
+  - You hear them too, don't you? The stones... the walls... always whispering.
+  - Listen carefully. The gate out of this dungeon is sealed.
+  - 'It opens only for the three gems: the Ruby, the Emerald, and the Sapphire.'
+  - Find them, and the way out may open for us yet.
+  - Or stay here and let the dark chew through your mind. Your choice.
+  inProgressLines:
+  - Not yet... I can see it in your hands. They are still incomplete.
+  - 'Bring me all three gems: Ruby, Emerald, and Sapphire.'
+  - The gate will not answer to anything less.
+  readyToCompleteLines:
+  - Ah... yes. I can feel them. The three stones are finally together.
+  - Ruby. Emerald. Sapphire. At last.
+  - Good. Good... now the seal may break.
+  - Go. Before this place changes its mind.
+  completedLines:
+  - Then go.
+  - Do not look back, no matter what calls your name.
+  vendor: {fileID: 0}
+  vendorUI: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  questManager: {fileID: 0}
+--- !u!136 &7152877485150309943
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974652451212267398}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.5384617
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7692308, z: 0}
