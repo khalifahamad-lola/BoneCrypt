@@ -57960,7 +57960,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 993340586}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -58545,6 +58545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005590427}
+  - component: {fileID: 1005590428}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -58574,6 +58575,18 @@ RectTransform:
   m_AnchoredPosition: {x: 23, y: 0}
   m_SizeDelta: {x: 46, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1005590428
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005590425}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!43 &1014161429
 Mesh:
   m_ObjectHideFlags: 0
@@ -59892,6 +59905,8 @@ MonoBehaviour:
   - {fileID: 1792521693}
   - {fileID: 859499585}
   - {fileID: 1626919771}
+  settingsPanel: {fileID: 0}
+  pauseMenuPanel: {fileID: 0}
 --- !u!43 &1040311349
 Mesh:
   m_ObjectHideFlags: 0
@@ -99859,14 +99874,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc914237dea7e7e429c957f4aca73535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
-  pauseMenu: {fileID: 0}
-  panel: {fileID: 588590643}
-  settingsPanel: {fileID: 0}
-  fadeSpeed: 8
-  scaleSpeed: 8
-  hiddenScale: {x: 0.9, y: 0.9, z: 1}
-  shownScale: {x: 1, y: 1, z: 1}
-  mainMenuSceneName: MainMenu
+  pauseMenuRoot: {fileID: 1005590428}
+  darkOverlay: {fileID: 1956191066}
+  mainPanel: {fileID: 588590646}
+  settingsPanel: {fileID: 993340588}
 --- !u!4 &1638079851
 Transform:
   m_ObjectHideFlags: 0
@@ -115947,6 +115958,7 @@ GameObject:
   - component: {fileID: 1956191063}
   - component: {fileID: 1956191065}
   - component: {fileID: 1956191064}
+  - component: {fileID: 1956191066}
   m_Layer: 5
   m_Name: DarkOverlay
   m_TagString: Untagged
@@ -116011,6 +116023,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956191062}
   m_CullTransparentMesh: 1
+--- !u!225 &1956191066
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956191062}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1962051335
 GameObject:
   m_ObjectHideFlags: 0
