@@ -119,8 +119,8 @@ public class DarkFantasyMainMenuBuilder : MonoBehaviour
             img.color = new Color(0f, 0f, 0f, alpha);
 
             RectTransform rt = strip.GetComponent<RectTransform>();
-            float start = Mathf.Lerp(0.34f, 0.62f, t);
-            float end = Mathf.Lerp(0.37f, 0.65f, t);
+            float start = Mathf.Lerp(0.30f, 0.45f, t);
+            float end = Mathf.Lerp(0.35f, 0.50f, t);
 
             rt.anchorMin = new Vector2(start, 0f);
             rt.anchorMax = new Vector2(end, 1f);
